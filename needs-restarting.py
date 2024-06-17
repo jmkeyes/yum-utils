@@ -151,7 +151,7 @@ def main(args):
 
     if opts.reboothint:
         needing_reboot = set()
-        for pkg in my.rpmdb.searchNames(REBOOTPKGS):
+        for pkg in { my.rpmdb.searchProvides(name) for name in REBOOTPKGS }:
             if float(pkg.installtime) > float(boot_time):
                 needing_reboot.add(pkg)
         if needing_reboot:
